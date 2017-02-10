@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <% for (var x in lol) { %>
+        <h3>Name: <%= lol[x].name %></h3>
+        <h3>Language: <%= lol[x].language %></h3>
+        <h3>comments: <%= lol[x].comment %></h3>
+        <h3>Location: <%= lol[x].location %></h3>
+        <hr>
+    <% } %>
+  </body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>index.ejs</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type ="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type ="text/javascript">
+        $(document).ready(function (){
+
+            var socket = io.connect();
+
+            $('.submit').click(function (){
+              socket.emit("posting_form", {
+                name: $(".name").val(),
+                lang: $(".language").val(),
+                loc: $(".location").val(),
+                comment: $(".comment").val()
+              });
+              socket.emit("random_number");
+            });
+
+            socket.on('server_response', function (data){
+              $(".a").append("Name: " + data.name)
+              $(".b").append("Dojo Location: " + data.loc)
+              $(".c").append("Fav Language: " + data.lang)
+              $(".d").append("Comment: " + data.comment)
+            });
+
+            socket.on('sent_random_number', function (hue){
+              $(".r").append("Random Number: " + hue.key)
+            });
+
+        })
+    </script>
+  </head>
+  <body>
+
+    <h3><div class="a"></div></h3>
+    <h3><div class="b"></div></h3>
+    <h3><div class="c"></div></h3>
+    <h3><div class="d"></div></h3>
+    <h3><div class="r"></div></h3>
+    <hr>
+
+
+      Your Name: <input type="text" class="name"> <br>
+      Your Location:
+      <select class="location">
+        <option value="sanjose">San Jose</option>
+        <option value="seattle">Seattle</option>
+      </select> <br>
+      Fav Language:
+      <select class="language">
+        <option value="javascript">Javascript</option>
+        <option value="python">Python</option>
+      </select> <br>
+      Comments: <br> <textarea class="comment"></textarea><br>
+      <button class="submit">Submit</button>
+
+
+
+  </body>
+</html>
